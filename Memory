@@ -1,9 +1,15 @@
 from random import shuffle
 from turtle import *
 from freegames import path
-
 car = path('car.gif')
-tiles = list(range(32)) * 2
+
+
+symbols = ['♥', '♠', '♦', '♣', '★', '✿', '☀', '☁',
+           '♫', '♪', '⚓', '⚡', '☮', '☯', '⚽', '⚾',
+           '✈', '✌', '✓', '✂', '⚕', '⚙', '⚖', '⌛',
+           '☎', '✉', '✒', '⌨', '☝', '☺', '✈', '☂']
+
+tiles = symbols * 2
 state = {'mark': None}
 hide = [True] * 64
 tapsCounter = 0
@@ -34,7 +40,6 @@ def tap(x, y):
     spot = index(x, y)
     mark = state['mark']
     tapsCounter += 1
-
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
@@ -48,32 +53,28 @@ def draw():
     goto(0, 0)
     shape(car)
     stamp()
-
     for count in range(64):
         if hide[count]:
             x, y = xy(count)
             square(x, y)
-
     mark = state['mark']
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
-        color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
 
-    # Mostrar contador de taps
+        goto(x + 25, y + 5)
+        color('black')
+        write(tiles[mark], font=('Arial', 30, 'normal'), align='center')
+
     up()
     goto(-180, 180)
     color('black')
     write(f'Taps: {tapsCounter}', font=('Arial', 16, 'normal'))
 
-    # Verificar si se ha ganado
     if all(not h for h in hide):
         goto(-100, 0)
         color('red')
         write('¡Juego terminado!', font=('Arial', 24, 'bold'))
-
     update()
     ontimer(draw, 100)
 
@@ -85,4 +86,3 @@ tracer(False)
 onscreenclick(tap)
 draw()
 done()
-
