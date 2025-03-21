@@ -1,8 +1,8 @@
 from random import shuffle
 from turtle import *
 from freegames import path
-car = path('car.gif')
 
+car = path('car.gif')
 
 symbols = ['♥', '♠', '♦', '♣', '★', '✿', '☀', '☁',
            '♫', '♪', '⚓', '⚡', '☮', '☯', '⚽', '⚾',
@@ -61,8 +61,7 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-
-        goto(x + 25, y + 5)
+        goto(x + 25, y + 15)  
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'), align='center')
 
